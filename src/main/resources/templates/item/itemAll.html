@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>등록된 상품</title>
+</head>
+<body>
+<h1>등록된 상품</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Photo</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${itemAll}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td>
+        <img th:src="@{${item.getImgPath()}}" alt="Item Photo" style="max-width: 100px; max-height: 100px;"/>
+        <td>
+            <a th:href="@{/item/view/{id}(id=${item.id})}">View</a> |
+            <a th:href="@{/item/modify/{id}(id=${item.id})}">Modify</a> |
+            <a th:href="@{/item/delete/{id}(id=${item.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<a href="/item/new">Register New Item</a>
+</body>
+</html>

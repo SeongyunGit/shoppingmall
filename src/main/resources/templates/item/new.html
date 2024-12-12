@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>상품 등록</title>
+</head>
+<body>
+<h1>상품 등록</h1>
+<form action="/item/new" method="post" enctype="multipart/form-data">
+  <label for="name">Name:</label>
+  <input type="text" id="name" name="name" required><br>
+
+  <label for="text">Description:</label>
+  <textarea id="text" name="text" required></textarea><br>
+
+  <label for="price">Price:</label>
+  <input type="number" id="price" name="price" required><br>
+
+  <label for="count">Count:</label>
+  <input type="number" id="count" name="count" required><br>
+
+  <label for="stock">Stock:</label>
+  <input type="number" id="stock" name="stock" required><br>
+
+  <label for="text">상품 이미지 업로드</label>
+  <input type="file" name="imgFile"><br>
+
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

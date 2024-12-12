@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modify Item</title>
+</head>
+<body>
+<h1>Modify Item</h1>
+<form th:action="@{/item/modify/complete/{id}(id=${item.id})}" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:value="${item.name}" required><br>
+
+    <label for="text">Description:</label>
+    <textarea id="text" name="text" required th:text="${item.text}"></textarea><br>
+
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" th:value="${item.price}" required><br>
+
+    <label for="count">Count:</label>
+    <input type="number" id="count" name="count" th:value="${item.count}" required><br>
+
+    <label for="stock">Stock:</label>
+    <input type="number" id="stock" name="stock" th:value="${item.stock}" required><br>
+
+    <label for="photo">Photo URL:</label>
+    <input type="text" id="photo" name="photo" th:value="${item.photo}"><br>
+
+    <button type="submit">Save Changes</button>
+</form>
+</body>
+</html>

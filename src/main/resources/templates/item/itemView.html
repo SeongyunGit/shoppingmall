@@ -1,0 +1,15 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Item Details</title>
+</head>
+<body>
+<h1>Item Details</h1>
+<p><strong>Name:</strong> <span th:text="${item.name}"></span></p>
+<p><strong>Description:</strong> <span th:text="${item.text}"></span></p>
+<p><strong>Price:</strong> <span th:text="${item.price}"></span></p>
+<p><strong>Count:</strong> <span th:text="${item.count}"></span></p>
+<p><strong>Stock:</strong> <span th:text="${item.stock}"></span></p>
+<p><strong>Photo:</strong> <img th:src="@{${item.getImgPath()}}" alt="Item Photo"></p>
+<a href="/item/itemAll">Back to List</a>
+</body>
+</html>
