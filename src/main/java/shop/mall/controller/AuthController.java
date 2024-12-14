@@ -24,6 +24,7 @@ public class AuthController {
     public String mainPage(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails, Authentication authentication) {
         if (principalDetails != null && authentication!=null && authentication.isAuthenticated()) {
             model.addAttribute("username", principalDetails.getUsername());
+            model.addAttribute("id", principalDetails.getUser().getId());
         }
         model.addAttribute("itemAll", itemService.allItemView());
         return "main";
@@ -51,10 +52,5 @@ public class AuthController {
     public String logout(HttpSession session) throws Exception {
         authService.logout(session);
         return "redirect:/";
-    }
-
-    @GetMapping("/seller")
-    public String seller() {
-        return "seller/mainSeller";
     }
 }

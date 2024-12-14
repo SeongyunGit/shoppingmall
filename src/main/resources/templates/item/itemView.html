@@ -10,6 +10,16 @@
 <p><strong>Count:</strong> <span th:text="${item.count}"></span></p>
 <p><strong>Stock:</strong> <span th:text="${item.stock}"></span></p>
 <p><strong>Photo:</strong> <img th:src="@{${item.getImgPath()}}" alt="Item Photo"></p>
+<form class="d-flex" th:action="@{/cart/{id}/{itemId}(id=${user.id}, itemId=${item.id})}" method="post">
+    <div class="d-flex">
+        <input class="form-control text-center me-3" id="amount" name="amount" type="number" value="1"
+               style="max-width: 3rem"/>
+        <button class="btn btn-outline-dark flex-shrink-0" type="submit">
+            <i class="bi-cart-fill me-1"></i>
+            장바구니
+        </button>
+    </div>
+</form>
 <a href="/item/itemAll">Back to List</a>
 </body>
 </html>

@@ -37,7 +37,7 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public Item itemView(Integer id) {
+    public Item itemView(Long id) {
         return itemRepository.findById(id).get();
     }
 
@@ -45,7 +45,7 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public void itemModify(Item item, Integer id) {
+    public void itemModify(Item item, Long id) {
         Item update = itemRepository.findById(id).get();
         update.setName(item.getName());
         update.setText(item.getText());
@@ -54,9 +54,13 @@ public class ItemService {
         itemRepository.save(update);
     }
 
-    public void itemDelete(Integer id) {
+    public void itemDelete(Long id) {
         itemRepository.deleteById(id);
     }
 
+    public List<Item> userItem(Long id) {
+        System.out.println("itemRepository.findByUserId(id)" + itemRepository.findByUserId(id));
+        return itemRepository.findByUserId(id);
+    }
 
 }

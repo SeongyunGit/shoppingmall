@@ -29,6 +29,9 @@ public class User {
 
     private LocalDateTime createDate;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Cart cart;
+
     @PrePersist
     public void crateDate() {
         this.createDate = LocalDateTime.now();

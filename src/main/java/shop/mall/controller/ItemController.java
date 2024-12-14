@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import shop.mall.config.PrincipalDetails;
 import shop.mall.entity.Item;
+import shop.mall.entity.User;
+import shop.mall.repository.UserRepository;
+import shop.mall.service.AuthService;
 import shop.mall.service.ItemService;
 
 import java.util.List;
@@ -17,6 +20,7 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+
 
     @GetMapping("/item/new") //상품 등록페이지
     public String itemSaveForm() {
@@ -37,29 +41,38 @@ public class ItemController {
     }
     //상품 수정 페이지 GET
     @GetMapping("/item/modify/{id}")
-    public String itemModifyForm(@PathVariable("id") Integer id, Model model) {
+    public String itemModifyForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("item", itemService.itemView(id));
         return "item/modify";
     }
 
     // 상품 수정 POST
     @PostMapping("/item/modify/complete/{id}")
-    public String itemModify(Item item, @PathVariable("id") Integer id) {
+    public String itemModify(Item item, @PathVariable("id") Long id) {
         itemService.itemModify(item, id);
         return "redirect:/";
     }
 
     // 상품상세 페이지 GET
     @GetMapping("/item/view/{id}")
-    public String itemView(Model model, @PathVariable("id") Integer id) {
+    public String itemView(Model model, @PathVariable("id") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        User user = principalDetails.getUser();
         model.addAttribute(itemService.itemView(id));
+        model.addAttribute("user", user);
         return "item/itemView";
     }
 
     // 상품 삭제 GET
     @GetMapping("/item/delete/{id}")
-    public String deleteItem(@PathVariable("id") Integer id) {
+    public String deleteItem(@PathVariable("id") Long id) {
         itemService.itemDelete(id);
         return "main";
+    }
+
+    @GetMapping("/user/itemAll/{id}")
+    public String userItemAll(@PathVariable("id") Long id, Model model) {
+        List<Item> userItems = itemService.userItem(id);
+        model.addAttribute("userItems", userItems);
+        return "item/userItems";
     }
 }
