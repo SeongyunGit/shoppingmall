@@ -25,7 +25,7 @@ public class SecuirtyConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/","/signup").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

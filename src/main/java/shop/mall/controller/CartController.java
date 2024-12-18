@@ -42,8 +42,6 @@ public class CartController {
             Optional<User> user1 = userRepository.findById(id);
             User user = user1.get();
             Cart userCart = user.getCart();
-            System.out.println("user1.get()" + user1.get());
-            System.out.println("userCart.getId()"+userCart.getId());
             if (userCart!=null) {
                 List<CartItem> cartItems = cartService.allUserCartView(userCart.getId());
                 System.out.println("cartItems = " + cartItems);
@@ -75,4 +73,40 @@ public class CartController {
         return "redirect:/item/view/{itemId}";
     }
 
+    @PostMapping("/cart/update")
+    public String updateCart(@RequestParam("cartCount") int cartCount,
+                             @RequestParam("itemId") Long itemId,
+                             @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        Long id = principalDetails.getUser().getId();
+        Optional<User> user1 = userRepository.findById(id);
+        Cart cart = cartRepository.findByUserId(principalDetails.getUser().getId());
+        User user = user1.get();
+        Cart userCart = user.getCart();
+        List<CartItem> cartItems = cartService.allUserCartView(userCart.getId());
+        int totalPrice = 0;
+        int cartC = 0;
+        for (CartItem cartItem : cartItems) {
+            if (itemId.equals(cartItem.getItem().getId())) {
+                cartItem.setCartCount(cartCount);
+                cartItemRepository.save(cartItem);
+            }
+            cartC += cartItem.getCartCount();
+            totalPrice += cartItem.getCartCount() * cartItem.getItem().getPrice();
+        }
+        cart.setCount(cartC);
+        cartRepository.save(cart);
+
+        return "redirect:/cart/" + id;
+    }
+
+    @GetMapping("/cart/delete/{itemId}")
+    public String deleteCart(@PathVariable("itemId") Long id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        int count = cartRepository.findByUserId(principalDetails.getUser().getId()).getCount();
+        Cart cart = cartRepository.findByUserId(principalDetails.getUser().getId());
+        CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), id);
+        cart.setCount(count-cartItem.getCartCount());
+        cartItemRepository.deleteById(cartItem.getId());
+        cartRepository.save(cart);
+        return "redirect:/cart/"+principalDetails.getUser().getId();
+    }
 }
