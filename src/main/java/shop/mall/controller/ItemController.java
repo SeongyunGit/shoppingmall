@@ -65,8 +65,9 @@ public class ItemController {
     // 상품 삭제 GET
     @GetMapping("/item/delete/{id}")
     public String deleteItem(@PathVariable("id") Long id) {
+        System.out.println("id = " + id);
         itemService.itemDelete(id);
-        return "main";
+        return "redirect:/";
     }
 
     @GetMapping("/user/itemAll/{id}")

@@ -51,6 +51,7 @@ public class ItemService {
         update.setText(item.getText());
         update.setPrice(item.getPrice());
         update.setStock(item.getStock());
+
         itemRepository.save(update);
     }
 
