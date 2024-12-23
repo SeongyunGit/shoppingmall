@@ -25,4 +25,4 @@ spring:
         - ADMIN
 logging:
   level:
-    root: debug
+    root: info

@@ -1,5 +1,6 @@
 package shop.mall.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mall.config.PrincipalDetails;
@@ -19,6 +20,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@Slf4j
 public class CartService {
 
     private final CartRepository cartRepository;
@@ -71,6 +73,8 @@ public class CartService {
         int count = cartRepository.findByUserId(principalDetails.getUser().getId()).getCount();
         Cart cart = cartRepository.findByUserId(principalDetails.getUser().getId());
         CartItem cartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), id);
+        log.info("id " + id);
+        log.info("cartItem.getId() " + cartItem.getId());
         cart.setCount(count-cartItem.getCartCount());
         cartItemRepository.deleteById(cartItem.getId());
         cartRepository.save(cart);
