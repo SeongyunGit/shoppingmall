@@ -48,10 +48,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/board/new">게시판</a>
+                    <a class="nav-link" href="/board/new">게시판 쓰기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/boards">게시판 목록</a>
+                    <a class="nav-link" href="/boards">게시판</a>
                 </li>
                 <li sec:authorize="hasRole('ROLE_SELLER')"  class="nav-item">
                     <a class="nav-link" href="/item/new">상품 등록</a>
@@ -91,8 +91,6 @@
                 <div class="card-footer bg-transparent border-top-0">
                     <div class="d-flex justify-content-between">
                         <a th:href="@{/item/view/{id}(id=${item.id})}" class="btn btn-primary btn-sm btn-custom">상세보기</a>
-                        <a sec:authorize="hasRole('ROLE_SELLER')" th:href="@{/item/modify/{id}(id=${item.id})}" class="btn btn-warning btn-sm btn-custom">수정</a>
-                        <a sec:authorize="hasRole('ROLE_SELLER')" th:href="@{/item/delete/{id}(id=${item.id})}" class="btn btn-danger btn-sm btn-custom">삭제</a>
                     </div>
                 </div>
             </div>

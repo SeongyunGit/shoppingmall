@@ -1,5 +1,6 @@
 package shop.mall.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mall.DTO.Board;
@@ -11,13 +12,10 @@ import java.util.Optional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class BoardService {
 
     private final BoardRespository boardRespository;
-
-    public BoardService(BoardRespository boardRespository) {
-        this.boardRespository = boardRespository;
-    }
 
     public List<BoardEntity> findAll() {
         return boardRespository.findAll();

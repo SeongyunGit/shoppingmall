@@ -25,7 +25,7 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" th:each="item : ${itemAll}">
-            <div class="card h-100">
+            <div th:if="${item.user.id} == ${user.id}" class="card h-100">
                 <img th:src="@{${item.getImgPath()}}" class="card-img-top" alt="Item Photo">
                 <div class="card-body">
                     <h5 class="card-title" th:text="${item.name}"></h5>
@@ -33,9 +33,9 @@
                 </div>
                 <div class="card-footer bg-transparent">
                     <div class="d-flex justify-content-between">
-                        <a th:href="@{/item/view/{id}(id=${item.id})}" class="btn btn-sm btn-primary">View</a>
-                        <a th:href="@{/item/modify/{id}(id=${item.id})}" class="btn btn-sm btn-warning">Modify</a>
-                        <a th:href="@{/item/delete/{id}(id=${item.id})}" class="btn btn-sm btn-danger">Delete</a>
+                        <a th:href="@{/item/view/{id}(id=${item.id})}" class="btn btn-sm btn-primary">상세</a>
+                        <a th:href="@{/item/modify/{id}(id=${item.id})}" class="btn btn-sm btn-warning">수정</a>
+                        <a th:href="@{/item/delete/{id}(id=${item.id})}" class="btn btn-sm btn-danger">제거</a>
                     </div>
                 </div>
             </div>

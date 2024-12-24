@@ -1,6 +1,8 @@
 package shop.mall.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mall.config.PrincipalDetails;
@@ -21,19 +23,13 @@ import java.util.Optional;
 @Service
 @Transactional
 @Slf4j
+@RequiredArgsConstructor
 public class CartService {
 
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final ItemRepository itemRepository;
     private final UserRepository userRepository;
-
-    public CartService(CartRepository cartRepository, CartItemRepository cartItemRepository, ItemRepository itemRepository, UserRepository userRepository) {
-        this.cartRepository = cartRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.itemRepository = itemRepository;
-        this.userRepository = userRepository;
-    }
 
     public void addCart(User user, Item newItem, int amount) {
         Cart cart = cartRepository.findByUserId(user.getId());
@@ -97,5 +93,16 @@ public class CartService {
         }
         cart.setCount(cartC);
         cartRepository.save(cart);
+    }
+
+    public void boughtShop(List<CartItem> cartItems, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        for (CartItem cartitem : cartItems) {
+            List<Item> itemList = itemRepository.findByUserId(principalDetails.getUser().getId());
+            for (Item item : itemList) {
+                int totalCount = item.getCount();
+                int count = cartitem.getItem().getCount();
+                item.setCount(totalCount-count);
+            }
+        }
     }
 }

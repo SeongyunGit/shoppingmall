@@ -17,15 +17,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
 
     private final BoardRespository boardRespository;
     private final BoardService boardService;
-
-    public BoardController(BoardRespository boardRespository, BoardService boardService) {
-        this.boardRespository = boardRespository;
-        this.boardService = boardService;
-    }
 
     @GetMapping("/board/new")
     public String createBoard(Model model) {

@@ -1,8 +1,10 @@
 package shop.mall.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import shop.mall.config.PrincipalDetails;
 import shop.mall.entity.Item;
 import shop.mall.repository.ItemRepository;
 
@@ -12,15 +14,12 @@ import java.util.UUID;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ItemService {
 
     private final ItemRepository itemRepository;
 
-    public ItemService(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
-    }
-
-    public void saveItem(Item item, MultipartFile imgFile) throws Exception {
+    public void saveItem(Item item, PrincipalDetails principalDetails, MultipartFile imgFile) throws Exception {
         String oriImgName = imgFile.getOriginalFilename();
         String imgName = "";
         String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/files/";
@@ -31,6 +30,7 @@ public class ItemService {
         File saveFile = new File(projectPath, imgName);
         imgFile.transferTo(saveFile);
 
+        item.setUser(principalDetails.getUser());
         item.setImgName(imgName);
         item.setImgPath("/files/" + imgName);
 
@@ -51,7 +51,7 @@ public class ItemService {
         update.setText(item.getText());
         update.setPrice(item.getPrice());
         update.setStock(item.getStock());
-
+        update.setCount(item.getCount());
         itemRepository.save(update);
     }
 

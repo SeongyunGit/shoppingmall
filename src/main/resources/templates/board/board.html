@@ -2,60 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>게시글 작성</title>
-    <style>
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-        }
-    </style>
+    <!-- 부트스트랩 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
-    <h2>게시글 작성</h2>
+<div class="container mt-5">
+    <h2 class="mb-4">게시글 작성</h2>
     <form th:action="@{/board/new}" th:object="${board}" method="post">
-        <div class="form-group">
-            <label for="title">제목</label>
-            <input type="text" id="title" th:field="*{title}" required>
+        <div class="mb-3">
+            <label for="title" class="form-label">제목</label>
+            <input type="text" class="form-control" id="title" th:field="*{title}" required>
         </div>
 
-        <div class="form-group">
-            <label for="content">내용</label>
-            <textarea id="content" th:field="*{content}" rows="10" required></textarea>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea class="form-control" id="content" th:field="*{content}" rows="10" required></textarea>
         </div>
 
-        <div class="form-group" style="display:none;">
+        <div class="mb-3" style="display:none;">
             <input type="datetime-local" th:field="*{createdAt}" th:value="${#temporals.createNow()}" />
         </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn">작성 완료</button>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">작성 완료</button>
+            <a href="/" class="btn btn-secondary">뒤로 가기</a>
         </div>
     </form>
 </div>
+
+<!-- 부트스트랩 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

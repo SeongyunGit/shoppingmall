@@ -15,7 +15,6 @@ import shop.mall.DTO.KakaoPayReadyV0;
 
 import shop.mall.config.PrincipalDetails;
 import shop.mall.entity.CartItem;
-import shop.mall.repository.CartItemRepository;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,9 +29,11 @@ public class KakaoPay {
 
     private KakaoPayReadyV0 kakaoPayReadyV0;
     private KakaoPayApprovalV0 kakaoPayApprovalV0;
+
+    private final CartService cartService;
+
     private String realTotalPrice;
     private List<CartItem> cartItems;
-    private final CartService cartService;
 
 
     public String kakaoPayReady(String totalPrice, List<CartItem> cartItemList) {
@@ -93,9 +94,8 @@ public class KakaoPay {
 
         try {
             kakaoPayApprovalV0 = restTemplate.postForObject(new URI(HOST + "/v1/payment/approve"), body, KakaoPayApprovalV0.class);
-            log.info("cartItems" + cartItems.size());
+            cartService.boughtShop(cartItems, principalDetails);
             for (CartItem cartItem : cartItems) {
-                log.info("cartItemId " + cartItem.getItem().getId());
                 cartService.delete(principalDetails, cartItem.getItem().getId());
             }
             log.info("" + kakaoPayApprovalV0);
