@@ -2,9 +2,9 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    ?? PC? ????? Database??? ?? ???.
-    url: jdbc:mysql://127.0.0.1:3306/shop # Database?? ?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://13.125.113.185:3306/shop # Database?? ?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     #    mysql? ??? ??? ?? ??? ?? ???.
-    username: root
+    username: okks3579
     password: Tjddbswkd12!@ # ??? mysql ????
   thymeleaf:
     cache: false
