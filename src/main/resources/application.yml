@@ -2,7 +2,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #    ?? PC? ????? Database??? ?? ???.
-    url: jdbc:mysql://54.180.247.224:3306/shop?serverTimezone=Asia/Seoul # Database?? ?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://3.38.117.32:3306/shop?serverTimezone=Asia/Seoul # Database?? ?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     #    mysql? ??? ??? ?? ??? ?? ???.
     username: okks3579
     password: Tjddbswkd12!@ # ??? mysql ????
