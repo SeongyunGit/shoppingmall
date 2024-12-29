@@ -6,6 +6,9 @@ spring:
     #    mysql? ??? ??? ?? ??? ?? ???.
     username: okks3579
     password: Tjddbswkd12!@ # ??? mysql ????
+    hikari:
+      connection-timeout: 30000
+      maximum-pool-size: 10
   thymeleaf:
     cache: false
 
